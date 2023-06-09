@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.073c9b0a.css",
-    "main.js": "/static/js/main.7ba998d8.js",
-    "static/js/787.23d76be5.chunk.js": "/static/js/787.23d76be5.chunk.js",
-    "index.html": "/index.html",
-    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
-    "main.7ba998d8.js.map": "/static/js/main.7ba998d8.js.map",
-    "787.23d76be5.chunk.js.map": "/static/js/787.23d76be5.chunk.js.map"
+    "main.css": "/test-carv-postapp/static/css/main.073c9b0a.css",
+    "main.js": "/test-carv-postapp/static/js/main.f416ba5d.js",
+    "static/js/787.23d76be5.chunk.js": "/test-carv-postapp/static/js/787.23d76be5.chunk.js",
+    "index.html": "/test-carv-postapp/index.html",
+    "main.073c9b0a.css.map": "/test-carv-postapp/static/css/main.073c9b0a.css.map",
+    "main.f416ba5d.js.map": "/test-carv-postapp/static/js/main.f416ba5d.js.map",
+    "787.23d76be5.chunk.js.map": "/test-carv-postapp/static/js/787.23d76be5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.7ba998d8.js"
+    "static/js/main.f416ba5d.js"
   ]
 }
