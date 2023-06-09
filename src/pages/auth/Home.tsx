@@ -31,6 +31,9 @@ export const Home = () => {
             <li>
               <strong>Material UI</strong> para los estilos
             </li>
+             <li>
+              <strong>GitHub Pages</strong> para publicar un demo Online
+            </li>
           </ul>
         </Typography>
       </CardContent>
