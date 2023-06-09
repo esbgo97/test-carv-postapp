@@ -4,14 +4,17 @@ import { AppRoutes } from "./pages/routes";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./packages/material";
 import { Layout } from "./components/Layout";
+import { HashRouter } from "react-router-dom";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Layout>
-        <AppRoutes />
-      </Layout>
-    </ThemeProvider>
+    <HashRouter>
+      <ThemeProvider theme={theme}>
+        <Layout>
+          <AppRoutes />
+        </Layout>
+      </ThemeProvider>
+    </HashRouter>
   );
 }
 
