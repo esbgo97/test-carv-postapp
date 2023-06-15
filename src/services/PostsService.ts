@@ -86,7 +86,6 @@ export const GET_POSTS = async (): Promise<Post[]> => {
     const authorRef = doc(fireStore, "users", postData.author.id);
     const authorSnapshot = await getDoc(authorRef);
     const authorData = authorSnapshot.data();
-
     const post: Post = {
       id: postDoc.id,
       title: postData.title,
@@ -117,6 +116,9 @@ export const GET_POST_BY_ID = async (postId: string): Promise<any | null> => {
       // Obtener información del autor
       const authorRef = postData.author;
       const authorSnapshot = await getDoc(authorRef);
+
+      //obtener informacion de comentarios
+      
 
       if (authorSnapshot.exists()) {
         const authorData = authorSnapshot.data() as any;

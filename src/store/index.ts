@@ -1,25 +1,13 @@
-import { ThunkAction } from "redux-thunk";
-import { RegisterData, User } from "../models/auth";
-import { MainState } from "../models/states";
-import { SignInAction } from "./types";
-import AuthService from "../services/AuthService";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import { authReducer } from "./reducers/authReducer";
+import { mainReducer } from "./reducers/mainReducer";
+import { postReducer } from "./reducers/postReducer";
+import thunk from "redux-thunk";
 
-export const signup = (
-  data: RegisterData,
-  onError: () => void
-): ThunkAction<void, MainState, null, SignInAction> => {
-  return async (dispatch) => {
-    try {
-      const resp = await new AuthService().Register(data);
-      if (resp != null && resp.user) {
-        const user :User= {
-            id: resp.user.uid,
-            name: data.name,
-            email: data.email,
-            createAt: new Date(),
-        }
-        
-      }
-    } catch (err) {}
-  };
-};
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  main: mainReducer,
+  posts: postReducer,
+});
+
+export const store = createStore(rootReducer, applyMiddleware(thunk));

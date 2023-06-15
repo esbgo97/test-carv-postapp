@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import {
   Card,
   CardContent,
@@ -16,28 +17,18 @@ import {
 } from "@mui/material";
 import { Edit, Send } from "@mui/icons-material";
 import { Link, useParams } from "react-router-dom";
-import { ADD_COMMENT, GET_POST_BY_ID } from "../../services/PostsService";
-import { serverTimestamp } from "firebase/firestore";
 
-export const Post = (props: any) => {
+import { ADD_COMMENT } from "../../services/PostsService";
+import { loadPost } from "../../store/actions/postsActions";
+
+const Post = (props: any) => {
   const { id } = useParams();
-  const initialPostState = {
-    title: "Titulo de Prueba",
-    content: "Contenido de Prueba",
-    author: { id: "", name: "" },
-    createAt: null as any,
-  };
 
-  const [post, setPost] = useState(initialPostState);
   const [comment, setComment] = useState("");
+
   useEffect(() => {
-    GET_POST_BY_ID(id ?? "").then((resp) => {
-      if (resp) {
-        setPost(resp);
-      }
-    });
+    props.onLoadPost(id);
   }, []);
-  // const { title, content } = props;
 
   const onAddComment = async () => {
     console.log(comment);
@@ -47,7 +38,7 @@ export const Post = (props: any) => {
     }
   };
 
-  const { title, content, author, createAt } = post;
+  const { post } = props;
 
   return (
     <Grid container>
@@ -55,64 +46,83 @@ export const Post = (props: any) => {
 
       <Grid item xs={8}>
         <Card elevation={4}>
-          <CardContent>
-            <Typography variant="h5" color="primary">
-              {title}
-            </Typography>
-
-            <Typography variant="body1">{content}</Typography>
-
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="body2" color="gray">
-                {author.name}
+          {post == null ? (
+            <Typography variant="body1"> Sin Datos!</Typography>
+          ) : (
+            <CardContent>
+              <Typography variant="h5" color="primary">
+                {post.title}
               </Typography>
-              <Typography variant="subtitle2" color="gray">
-                {createAt?.toDate().toLocaleString()}
-              </Typography>
-            </Box>
-            <br />
 
-            <Typography variant="h6" color="primary">
-              Comentarios
-            </Typography>
+              <Typography variant="body1">{post.content}</Typography>
 
-            <List>
-              <ListItem>
-                <TextField
-                  label="Nuevo Comentario"
-                  variant="standard"
-                  fullWidth
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Edit />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-                <IconButton onClick={onAddComment}>
-                  <Send />
-                </IconButton>
-              </ListItem>
-              <Divider />
-              <ListItem
-                sx={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <ListItemText primary="Comentario 1" secondary="Autor" />
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="body2" color="gray">
-                  {new Date().toLocaleString()}
+                  {post.autor}
                 </Typography>
-              </ListItem>
-            </List>
-            <Link to="/posts" style={{ textDecoration: "none" }}>
-              <Button>Volver</Button>
-            </Link>
-          </CardContent>
+                <Typography variant="subtitle2" color="gray">
+                  {post.createAt.toDate().toLocaleString()}
+                </Typography>
+              </Box>
+              <br />
+              <Divider />
+
+              <Typography variant="h6" color="primary">
+                Comentarios
+              </Typography>
+
+              <List>
+                <ListItem>
+                  <TextField
+                    label="Nuevo Comentario"
+                    variant="standard"
+                    fullWidth
+                    value={post.comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Edit />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                  <IconButton onClick={onAddComment}>
+                    <Send />
+                  </IconButton>
+                </ListItem>
+                <Divider />
+                <ListItem
+                  sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <ListItemText primary="Comentario 1" secondary="Autor" />
+                  <Typography variant="body2" color="gray">
+                    {new Date().toLocaleString()}
+                  </Typography>
+                </ListItem>
+              </List>
+              <Link to="/posts" style={{ textDecoration: "none" }}>
+                <Button>Volver</Button>
+              </Link>
+            </CardContent>
+          )}
         </Card>
       </Grid>
       <Grid item xs={2} />
     </Grid>
   );
 };
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onLoadPost: (postId: string) => dispatch(loadPost(postId)),
+    onAddComment:(postId:string, comment:string) => dispatch()
+  };
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    post: state.posts.post,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

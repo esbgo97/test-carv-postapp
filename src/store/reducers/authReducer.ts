@@ -1,34 +1,15 @@
-import { AuthState, MainState } from "../../models/states";
-import {
-  SIGN_IN,
-  SIGN_OUT,
-  LOADING,
-  SHOW_ALERT,
-  HIDE_ALERT,
-  SignInAction,
-  SignOutAction,
-  LoadingAction,
-  ShowAlertAction,
-  HideAlertAction,
-  AuthActions,
-  MainActions,
-} from "../types";
+import { AuthState } from "../../models/states";
+import { SIGN_IN, SIGN_OUT, AuthActions } from "../types/auth";
 
-const initialState: MainState = {
-  auth: {
-    user: null,
-    authenticated: false,
-  },
-  loading:false,
-  alert: {
-    open: false,
-    type: "",
-    title: null,
-    text: "",
-  },
+const initialState: AuthState = {
+  user: null,
+  authenticated: false,
 };
 
-export const authReducer = (state: AuthState, action: AuthActions) => {
+export const authReducer = (
+  state: AuthState = initialState,
+  action: AuthActions
+) => {
   switch (action.type) {
     case SIGN_IN:
       return {
@@ -42,32 +23,7 @@ export const authReducer = (state: AuthState, action: AuthActions) => {
         user: null,
         authenticate: false,
       };
-  }
-};
-
-export const mainReducer = (state: MainState, action: MainActions) => {
-  switch (action.type) {
-    case LOADING:
-      return {
-        ...state,
-        loading: action.payload,
-      };
-    case SHOW_ALERT:
-      return {
-        ...state,
-        alert: {
-          ...action.payload,
-          open: true,
-        },
-      };
-    case HIDE_ALERT:
-      return {
-        ...state,
-        alert: {
-          open: false,
-          title: null,
-          text: "",
-        },
-      };
+    default:
+      return state;
   }
 };

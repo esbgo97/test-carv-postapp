@@ -17,11 +17,13 @@ import { Link } from "react-router-dom";
 import { PostForm } from "./PostForm";
 import { Post } from "../../models/main";
 import { GET_POSTS, SAVE_POST, UPDATE_POST } from "../../services/PostsService";
+import { createPost, loadPosts } from "../../store/actions/postsActions";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
 
-export class PostList extends Component {
+class PostList extends Component<any> {
   state = {
     editPost: null,
-    posts: [],
     openForm: false,
   };
 
@@ -31,7 +33,7 @@ export class PostList extends Component {
       //Se guardo correctamente
       alert("Se guardó correctamente");
       setTimeout(() => {
-        this.loadPosts();
+        this.props.loadPosts();
       }, 2000);
     }
   };
@@ -42,7 +44,7 @@ export class PostList extends Component {
       //Se guardo correctamente
       alert("Se guardó correctamente");
       setTimeout(() => {
-        this.loadPosts();
+        this.props.loadPosts();
       }, 2000);
     }
   };
@@ -55,11 +57,6 @@ export class PostList extends Component {
     }
   };
 
-  loadPosts = async () => {
-    var posts = await GET_POSTS();
-    this.setState({ ...this.state, posts });
-  };
-
   onOpenForm = (post: Post | null) => {
     this.setState({ ...this.state, openForm: true, editPost: post });
   };
@@ -69,10 +66,14 @@ export class PostList extends Component {
   };
 
   async componentDidMount(): Promise<void> {
-    this.loadPosts();
+    this.props.loadPosts();
   }
+
   render(): React.ReactNode {
-    const { posts, editPost, openForm } = this.state;
+    const { editPost, openForm } = this.state;
+    const { posts } = this.props;
+    console.log(this.props);
+
     return (
       <Grid container>
         <Grid item xs={1} />
@@ -111,13 +112,14 @@ export class PostList extends Component {
 
               <br />
               <List sx={{ width: "100%" }}>
-                {posts.map((post: any, index: number) => (
-                  <PostItem
-                    key={index}
-                    post={post}
-                    onEdit={() => this.onOpenForm(post)}
-                  />
-                ))}
+                {posts &&
+                  posts.map((post: any, index: number) => (
+                    <PostItem
+                      key={index}
+                      post={post}
+                      onEdit={() => this.onOpenForm(post)}
+                    />
+                  ))}
               </List>
             </CardContent>
           </Card>
@@ -177,3 +179,14 @@ export const PostItem = (props: any) => {
     </>
   );
 };
+const mapStateToProps = (state: any) => {
+  return state.posts;
+};
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    loadPosts: () => dispatch(loadPosts()),
+    createPost: (post: Post) => dispatch(createPost(post)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

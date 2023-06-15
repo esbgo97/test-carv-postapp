@@ -1,5 +1,5 @@
 import {
-    UserCredential,
+  UserCredential,
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
@@ -7,7 +7,14 @@ import {
 import { Credentials, RegisterData, User } from "../models/auth";
 import { fireStore, firebaseApp, firebaseAuth } from "../packages/firebase";
 import "firebase/auth";
-import { collection, doc, getFirestore, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  query,
+  setDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBxWn_8WUkXXTexDMrgUH_Q0i1u63bQQmw",
@@ -23,46 +30,49 @@ export default class AuthService {
   //  auth = getAuth(firebase)
   constructor() {}
 
-  async Autenticate(credential: Credentials) {
+  async AUTHENTICATE(credential: Credentials) {
     try {
       const resp = await signInWithEmailAndPassword(
         firebaseAuth,
         credential.email,
         credential.pass
-      )
+      );
       return resp;
     } catch (err) {
       console.log({ err });
       return null;
     }
   }
-
-  async Register(info: RegisterData) {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        firebaseAuth,
-        info.email,
-        info.pass
-      );
-
-      if (userCredential.user) {
-        const user :User= {
-            id: userCredential.user.uid,
-            name: info.name,
-            email: info.email,
-            createAt: new Date(),
-        }
-        // query(collection(fireStore, "/users"), setDoc(userCredential.user.uid).firestore())
-        
-      }
-
-      console.log({userCredential})      
-      
-      return userCredential;
-
-    } catch (err) {
-      console.log({ err });
-      return null;
-    }
-  }
 }
+
+export const REGISTER = async (info: RegisterData) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      firebaseAuth,
+      info.email,
+      info.pass
+    );
+
+    if (userCredential.user) {
+      const user: User = {
+        id: userCredential.user.uid,
+        name: info.name,
+        email: info.email,
+        createAt: new Date(),
+      };
+
+      const userRef = collection(fireStore, "users");
+      var result = await addDoc(userRef, user);
+      console.log("El post se ha guardado correctamente");
+      return user;
+      // query(collection(fireStore, "/users"), setDoc(userCredential.user.uid).firestore())
+    }
+
+    console.log({ userCredential });
+
+    return userCredential;
+  } catch (err) {
+    console.log({ err });
+    return null;
+  }
+};

@@ -10,7 +10,7 @@ export const Home = () => {
           Esta aplicación es una prueba de ingreso a la compañia Carvajal.
         </Typography>
         <Typography variant="body1">
-          Esta prueba fue desarrollada por 
+          Esta prueba fue desarrollada por
           <a
             href="https://github.com/esbgo97/cv"
             target="_blank"
@@ -21,21 +21,21 @@ export const Home = () => {
           <br />
           Esta solución está implementada con React JS, usando las siguientes
           librerias:
-          <ul>
-            <li>
-              <strong>Redux</strong> para la gestion de estado de la aplicación
-            </li>
-            <li>
-              <strong>Firebase</strong> para el Backend (DB NoSQL)
-            </li>
-            <li>
-              <strong>Material UI</strong> para los estilos
-            </li>
-             <li>
-              <strong>GitHub Pages</strong> para publicar un demo Online
-            </li>
-          </ul>
         </Typography>
+        <ul style={{fontFamily:"arial"}}>
+          <li>
+            <strong>Redux</strong> para la gestion de estado de la aplicación
+          </li>
+          <li>
+            <strong>Firebase</strong> para el Backend (DB NoSQL)
+          </li>
+          <li>
+            <strong>Material UI</strong> para los estilos
+          </li>
+          <li>
+            <strong>GitHub Pages</strong> para publicar este demo Online
+          </li>
+        </ul>
       </CardContent>
     </Card>
   );

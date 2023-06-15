@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 export const Navigation = (props: any) => {
   // const { window } = props;
   // const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [authenticate, setAuthenticate] = React.useState(true);
 
   const handleDrawerToggle = () => {
     // setMobileOpen((prevState) => !prevState);
@@ -41,19 +42,37 @@ export const Navigation = (props: any) => {
           </Link>
         </Typography>
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          {routes
-            .filter((r) => !["/", "/post/{id}"].includes(r.path))
-            .map((item: any, index: number) => (
-              <Link
-                key={index}
-                style={{ textDecoration: "none" }}
-                to={item.path}
-              >
-                <Button sx={{ color: "#fff" }}>{item.name}</Button>
-              </Link>
-            ))}
+          {authenticate ? <SignedInRoutes /> : <SignedOutRoutes />}
         </Box>
       </Toolbar>
     </AppBar>
+  );
+};
+
+const SignedInRoutes = () => {
+  return (
+    <>
+      {routes
+        .filter((r) => !["/login", "/register", "/post/:id"].includes(r.path))
+        .map((item: any, index: number) => (
+          <Link key={index} style={{ textDecoration: "none" }} to={item.path}>
+            <Button sx={{ color: "#fff" }}>{item.name}</Button>
+          </Link>
+        ))}
+    </>
+  );
+};
+
+const SignedOutRoutes = () => {
+  return (
+    <>
+      {routes
+        .filter((r) => !["/post/:id", "/posts"].includes(r.path))
+        .map((item: any, index: number) => (
+          <Link key={index} style={{ textDecoration: "none" }} to={item.path}>
+            <Button sx={{ color: "#fff" }}>{item.name}</Button>
+          </Link>
+        ))}
+    </>
   );
 };

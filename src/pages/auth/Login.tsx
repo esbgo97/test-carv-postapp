@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -10,7 +10,19 @@ import {
 import { Link } from "react-router-dom";
 
 export const Login = () => {
-  const onSend = () => {};
+  const [data, setData] = useState({});
+
+  const onChange = (ev: any) => {
+    const { value, name } = ev.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const onSend = () => {
+    console.log({ data });
+  };
   return (
     <Grid container>
       <Grid item xs={2} />

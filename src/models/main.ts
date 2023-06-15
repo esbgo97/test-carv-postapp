@@ -8,4 +8,15 @@ export interface Post {
   createAt: Date;
   createBy: string;
   author: User | DocumentReference;
+  // comments: Comment[] | null;
 }
+
+export interface Comment {
+  id: string;
+  content: string;
+  createAt: Date;
+  idPost: string;
+  idUser: string;
+}
+
+

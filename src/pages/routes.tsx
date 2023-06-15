@@ -1,15 +1,13 @@
 import {
   Route,
   Routes,
-  HashRouter,
-  createBrowserRouter,
 } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { Home } from "./auth/Home";
 import { Login } from "./auth/Login";
 import { Register } from "./auth/Register";
-import { PostList } from "./main/PostList";
-import { Post } from "./main/Post";
+import PostList from "./main/PostList";
+import Post from "./main/Post";
 
 export const routes = [
   {

@@ -1,5 +1,3 @@
-import React from "react";
-import "./App.css";
 import { AppRoutes } from "./pages/routes";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./packages/material";
