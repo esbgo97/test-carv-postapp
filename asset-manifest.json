@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/test-carv-postapp/static/css/main.073c9b0a.css",
-    "main.js": "/test-carv-postapp/static/js/main.a08e04e5.js",
+    "main.css": "/test-carv-postapp/static/css/main.e6c13ad2.css",
+    "main.js": "/test-carv-postapp/static/js/main.5381df4c.js",
     "static/js/787.23d76be5.chunk.js": "/test-carv-postapp/static/js/787.23d76be5.chunk.js",
     "index.html": "/test-carv-postapp/index.html",
-    "main.073c9b0a.css.map": "/test-carv-postapp/static/css/main.073c9b0a.css.map",
-    "main.a08e04e5.js.map": "/test-carv-postapp/static/js/main.a08e04e5.js.map",
+    "main.e6c13ad2.css.map": "/test-carv-postapp/static/css/main.e6c13ad2.css.map",
+    "main.5381df4c.js.map": "/test-carv-postapp/static/js/main.5381df4c.js.map",
     "787.23d76be5.chunk.js.map": "/test-carv-postapp/static/js/787.23d76be5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.a08e04e5.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.5381df4c.js"
   ]
 }
