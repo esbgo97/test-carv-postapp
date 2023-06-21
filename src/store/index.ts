@@ -1,8 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
+import thunk from "redux-thunk";
+import { getFirestore} from "redux-firestore"
 import { authReducer } from "./reducers/authReducer";
 import { mainReducer } from "./reducers/mainReducer";
 import { postReducer } from "./reducers/postReducer";
-import thunk from "redux-thunk";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -10,4 +11,10 @@ export const rootReducer = combineReducers({
   posts: postReducer,
 });
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk.withExtraArgument({
+    
+    getFirestore
+  }))
+);

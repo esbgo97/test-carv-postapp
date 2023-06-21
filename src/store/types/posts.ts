@@ -22,7 +22,7 @@ export interface CreatePostAction {
 
 export interface AddCommentAction {
   type: typeof CREATE_POST;
-  payload: Post;
+  payload: Comment;
 }
 
 export type PostActions =
